@@ -21,6 +21,7 @@ import org.codehaus.groovy.grails.test.GrailsTestTypeResult
 import org.codehaus.groovy.grails.test.event.GrailsTestEventPublisher
 import org.codehaus.groovy.grails.test.report.junit.JUnitReportsFactory
 import org.codehaus.groovy.grails.test.support.GrailsTestTypeSupport
+import grails.plugin.cucumber.io.FilteredFileResourceLoader
 
 
 class CucumberTestType extends GrailsTestTypeSupport {
@@ -60,7 +61,8 @@ class CucumberTestType extends GrailsTestTypeSupport {
 
     private void prepareCucumber () {
         def shell = new GroovyShell (getTestClassLoader (), grailsShell.context)
-        cucumber = new Cucumber (getTestClassLoader (), shell, featurePath ())
+        def resourceLoader = new FilteredFileResourceLoader(testTargetPatterns)
+        cucumber = new Cucumber (getTestClassLoader(), resourceLoader, shell, featurePath ())
     }
 
     private void loadFeatures () {

@@ -121,7 +121,7 @@ class FeatureReportSpec extends UnitSpec {
     }
 
     def "reports each failure" () {
-        def failure = Mock (AssertionFailedError)
+        def failure = Mock (AssertionError)
         def test = Mock (CucumberTest)
         factory.createTest (!null) >> test
 

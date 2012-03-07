@@ -21,8 +21,8 @@ import gherkin.formatter.Formatter
 import cucumber.runtime.Runtime
 import cucumber.runtime.model.CucumberFeature
 import cucumber.runtime.snippets.SummaryPrinter
-import cucumber.io.FileResourceLoader
 import cucumber.runtime.groovy.GroovyBackend
+import cucumber.io.ResourceLoader
 
 class Cucumber {
     String featureDir
@@ -34,11 +34,11 @@ class Cucumber {
     def backends
     def runtime
 
-    Cucumber (ClassLoader classLoader, GroovyShell shell, String featureDir) {
+    Cucumber (ClassLoader classLoader, ResourceLoader resourceLoader, GroovyShell shell, String featureDir) {
         this.featureDir = featureDir
         paths.add (featureDir)
 
-        resourceLoader = new FileResourceLoader ()
+        this.resourceLoader = resourceLoader
         backends = [new GroovyBackend (shell, resourceLoader)]
         runtime = new Runtime (resourceLoader, paths, classLoader, backends, false)
     }
